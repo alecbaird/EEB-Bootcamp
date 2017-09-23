@@ -80,12 +80,12 @@ for(ii in 1:length(years)){
 bankAccounts <- c(10, 9.2, 5.6, 3.7, 8.8, 0.5)
 
 interestRate <- 0.0125;
-compounded 
+compounded <- rep_len(0,6)
 for( i in 1:length(bankAccounts)) {
-  bankAccounts[i] <- interestRate*bankAccounts[i] + bankAccounts[i];
-  print(bankAccounts)
+  compounded[i] <- interestRate*bankAccounts[i] + bankAccounts[i];
+  print(compounded)
   }
- 
+ compounded
 ## Change "compounded[i] to bankAccounts[i]
 
 ## Exercise 6) Go back to the compounded interest example. 
@@ -101,12 +101,14 @@ fun <- c(7.8, 2.1, 10.5) #deduct
 
 income <- c(21,21,21) # add
 
-for (j in 1:5) {
-  for (i in 1:length(bankAccounts))
+for (i in 1:5) {
+  for (i in 1:length(bankAccounts)){
+    bankAccounts[i] <- bankAccounts[i]
+                      - house[i] - food[i] - fun[i] + income[i];
     bankAccounts[i] <- interestRate*bankAccounts[i] + bankAccounts[i]
-                      - house - food - fun + income;
-  print(bankAccounts)
-}
+  }}
+
+bankAccounts
 
 ## Exercise 7) Three students have estimated annual expenditures for 
 ## food, housing, and fun of: (in thousands of dollars)
@@ -124,25 +126,23 @@ fun <- c(7.8, 2.1, 10.5);
 
 
 income <- c(21, 21, 21);
-students<-c(1,2,3)
-years <- c( 2015, 2016, 2018, 2020)
 
-
-for(ii in 1:length(years)){
-  if((students==1||students==3) && !(years[ii]%%2 ==0)){
-    bankAccounts<-bankAccounts+5000
+for(jj in 2015:2020){
+for(ii in 1:length(bankAccounts)) {
+  ## This condition sets the iteration for when the year jj is odd and the student ii is 1 or 3
+  if((jj %% 2==1) & ((ii=1)|(ii==3))) {
+    bankAccounts[ii] <- bankAccounts[ii] - house[ii] - food[ii] - fun[ii] + income[ii]+5
   }
+  else{
+  ## This is the iteration for all other years and students  
+    bankAccounts[ii] <- bankAccounts[ii] - house[ii] - food[ii] - fun[ii] + income[ii]
+  }
+    bankAccounts[ii] <- bankAccounts[ii] - house[ii] - food[ii] - fun[ii] + income[ii]
+    
+    bankAccounts[ii] <- interestRate*bankAccounts[ii] + bankAccounts[ii]
 }
-print(bankAccounts)
-
-bankAccounts<-(bankAccounts-house-food-fun+income)
-for (j in 1:5) {
-  bankAccounts<-(bankAccounts-house-food-fun+income)
-  print(bankAccounts)
-  for (i in 1:length(bankAccounts)) {
-    bankAccounts[i] <- interestRate*bankAccounts[i] + bankAccounts[i]; }
-  print(bankAccounts)
-}
+  cat("\n", bankAccounts)
+  }
 
 ##
 
@@ -163,42 +163,19 @@ print(sumi)
 ## Exercise 9) write a function that takes a number, and prints ‘small’ 
 ## if number less than or equal to -1; ‘medium’ if between -1 and + 
 ## 1’big’ if greater than or equal to + 1
-
-i<- 4
-if (i <= (-1)){
-  cat("Small")
-} else if ((i > -1) && (i < 1)){
-  cat("Medium")
-} else{
-  cat("Big")
-}
-
-
-
-
-#### Plotting and genetic variation data analysis exercises, Assignment 1
-heights <- rnorm(100, mean=69, sd=10)
-
-get_heights <- function(x){   
-  heights<-rnorm(100,mean=69,sd=10)
-  return(heights) &
-    heightmean <- mean(heights)
-    print(heightmean)
+x <- -4
+y <- 0
+z <- 4
+size <- function(x){
+  if (x >= 1) {
+    cat("big")
+  } else if (x <= -1){
+    cat("small")
+  } else if (x>-1 & x < 1){
+    cat("medium")
   }
 }
-  
-heightmean
 
-mean(x)
-                       
-
-
-heights
-
-  
-heights1 <- rnorm(100, mean=69, sd=10)
-heights2 <- rnorm(1000, mean=69, sd=10)
-
-heights.all <- c(heights1, heights2)
-
-mean(heights.all)
+size(x)
+size(y)
+size(z)
